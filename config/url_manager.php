@@ -1,4 +1,5 @@
 <?php
 return [
-    'measurement/<w+>' => 'measurement/<action>',
+    '' => 'site/index',
+    'measurement/<action:w+>' => 'measurement/<action>',
 ];

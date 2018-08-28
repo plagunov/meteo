@@ -41,7 +41,10 @@ class MeasurementController extends Controller
     {
         $model = new Measurement();
 
-        if ($model->load(Yii::$app->request->get()) && $model->validate())
+        $model->time = date('Y-m-d H:i:s');
+        $model->temperature = Yii::$app->request->get('temperature');
+
+        if ($model->validate())
         {
             if ($model->save()) {
                 Yii::$app->session->setFlash('successMeasurement', 'Результат измерения успешно получен');

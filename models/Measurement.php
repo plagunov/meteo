@@ -8,6 +8,10 @@ use yii\db\ActiveRecord;
  * Модель результата измерения
  * Class MeasurementModel
  * @package app\models
+ *
+ * @property int $id
+ * @property string $time
+ * @property string $temperature
  */
 class Measurement extends ActiveRecord
 {
@@ -20,7 +24,7 @@ class Measurement extends ActiveRecord
     {
         return [
             [['time', 'temperature'], 'required'],
-            ['time', 'datetime', 'format' => 'php: d.m.Y H:i:s'],
+            ['time', 'datetime', 'format' => 'php: Y-m-d H:i:s'],
         ];
     }
 
