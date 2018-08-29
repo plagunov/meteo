@@ -1,12 +1,13 @@
 <?php
 
-$params = require __DIR__ . '/params.php';
+$params = require __DIR__ . '/params.local.php';
 $db = require __DIR__ . '/db.local.php';
 $urlManager = require __DIR__ . '/url_manager.php';
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'language' => 'ru_RU',
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -47,7 +48,7 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'suffix' => '/',
+//            'suffix' => '/',
             'rules' => $urlManager,
         ],
     ],

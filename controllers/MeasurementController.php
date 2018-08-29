@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Measurement;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -31,7 +32,23 @@ class MeasurementController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $query = Measurement::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC
+                ],
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -44,11 +61,10 @@ class MeasurementController extends Controller
         $model->time = date('Y-m-d H:i:s');
         $model->temperature = Yii::$app->request->get('temperature');
 
-        if ($model->validate())
+        if ($model->validate() && (Yii::$app->params['importKey'] == Yii::$app->request->get('importKey')))
         {
             if ($model->save()) {
                 Yii::$app->session->setFlash('successMeasurement', 'Результат измерения успешно получен');
-                return $this->refresh();
             }
         }
 
